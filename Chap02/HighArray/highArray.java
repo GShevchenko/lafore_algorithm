@@ -75,6 +75,15 @@ class HighArray {
     public long getMax() {
         return nElems == 0 ? -1 : maxValue;
     }
+
+    public long removeMax() {
+        long removedMaxValue = getMax();
+        if (removedMaxValue == -1) {
+            return removedMaxValue;
+        }
+        delete(removedMaxValue);
+        return removedMaxValue;
+    }
 }  // end class HighArray
 
 ////////////////////////////////////////////////////////////////
@@ -84,14 +93,15 @@ class HighArrayApp {
         int maxSize = 100;            // array size
         HighArray arr;                // reference to array
         arr = new HighArray(maxSize); // create the array
-        System.out.println("Max value after init array (must be -1): " + arr.getMax());
+        System.out.println("Max value after init array (must be -1): " + arr.removeMax());
         arr.insert(77);               // insert 10 items
         arr.insert(66);
         arr.insert(44);
         arr.insert(55);
         arr.insert(22);
-        System.out.println("Max must be 77: " + arr.getMax());
-
+        System.out.printf("Max value %d. Removed max value %d\n", arr.getMax(), arr.removeMax());
+        System.out.println("Max must be 66: " + arr.getMax());
+        System.out.println("-------------------------------------------------------------------");
         arr.insert(88);
         arr.insert(11);
         arr.insert(00);
@@ -110,7 +120,8 @@ class HighArrayApp {
         arr.delete(00);               // delete 3 items
         arr.delete(55);
         arr.delete(99);
-        System.out.println("Max must be 88: " + arr.getMax());
+        System.out.printf("Max value is %d. Removed max value is %d\n", arr.getMax(), arr.removeMax());
+
 
         arr.display();                // display items again
     }  // end main()
