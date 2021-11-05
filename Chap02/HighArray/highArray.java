@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 // highArray.java
 // demonstrates array class with high-level interface
 // to run this program: C>java HighArrayApp
@@ -76,6 +78,11 @@ class HighArray {
         return nElems == 0 ? -1 : maxValue;
     }
 
+    public int getSize() {
+        return nElems;
+    }
+
+
     public long removeMax() {
         long removedMaxValue = getMax();
         if (removedMaxValue == -1) {
@@ -93,21 +100,16 @@ class HighArrayApp {
         int maxSize = 100;            // array size
         HighArray arr;                // reference to array
         arr = new HighArray(maxSize); // create the array
-        System.out.println("Max value after init array (must be -1): " + arr.removeMax());
         arr.insert(77);               // insert 10 items
         arr.insert(66);
         arr.insert(44);
         arr.insert(55);
         arr.insert(22);
-        System.out.printf("Max value %d. Removed max value %d\n", arr.getMax(), arr.removeMax());
-        System.out.println("Max must be 66: " + arr.getMax());
-        System.out.println("-------------------------------------------------------------------");
         arr.insert(88);
         arr.insert(11);
         arr.insert(00);
         arr.insert(99);
         arr.insert(33);
-        System.out.println("Max must be 99: " + arr.getMax());
 
         arr.display();                // display items
 
@@ -120,9 +122,12 @@ class HighArrayApp {
         arr.delete(00);               // delete 3 items
         arr.delete(55);
         arr.delete(99);
-        System.out.printf("Max value is %d. Removed max value is %d\n", arr.getMax(), arr.removeMax());
-
 
         arr.display();                // display items again
+        long[] sortedArray = new long[arr.getSize()];
+        for (int s = 0; s < sortedArray.length; s++) {
+            sortedArray[s] = arr.removeMax();
+        }
+        System.out.println("Sorted array is: " + Arrays.toString(sortedArray));
     }  // end main()
 }  // end class HighArrayApp
