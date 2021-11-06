@@ -15,6 +15,9 @@ class OrdArray {
         nElems = 0;
     }
 
+    public long[] getArray() {
+        return Arrays.copyOf(a, a.length);
+    }
     //-----------------------------------------------------------
     public int size() {
         return nElems;
@@ -58,7 +61,6 @@ class OrdArray {
             }
             curIn = (lowerBound + upperBound) / 2;
             if (a[curIn] < value && value < a[curIn + 1]) {
-                System.out.printf("Inside if j is %d, value is %d\n", j, value);
                 j = curIn + 1;              // found it
                 break;
             } else if (lowerBound > upperBound) {
@@ -71,8 +73,6 @@ class OrdArray {
                     upperBound = curIn - 1; // it's in lower half
             }  // end else divide range
         }
-        System.out.printf("j is %d, value %d, lowerBound %d, upperBound %d \n", j, value, lowerBound,  upperBound);
-        System.out.printf("Array is %s\n", Arrays.toString(a));
         for ( ; j < nElems; j++)        // find where it goes
             if (a[j] > value)            // (linear search)
                 break;
@@ -104,6 +104,29 @@ class OrdArray {
         System.out.println("");
     }
     //-----------------------------------------------------------
+
+    public long[] merge(long[] firstOrderedArray, long[] secondOrderedArray) {
+        long[] result = new long[firstOrderedArray.length + secondOrderedArray.length];
+        int minLength = Math.min(firstOrderedArray.length, secondOrderedArray.length);
+        int a = 0; int b = 0; int i = 0;
+        for ( ; i <= minLength; i++) {
+            if (firstOrderedArray[a] < secondOrderedArray[b]) {
+                result[i] = firstOrderedArray[a++];
+            } else {
+                result[i] = secondOrderedArray[b++];
+            }
+        }
+        if (i == a) {
+            for (; b < secondOrderedArray.length; b++) {
+                result[i++] = secondOrderedArray[b];
+            }
+        } else {
+            for (; a < secondOrderedArray.length; a++) {
+                result[i++] = secondOrderedArray[a];
+            }
+        }
+        return result;
+    }
 }  // end class OrdArray
 
 ////////////////////////////////////////////////////////////////
